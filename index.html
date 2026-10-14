@@ -69,12 +69,12 @@
     <h1>Propostas às cegas</h1>
     <p>Compare as propostas dos dois candidatos à Presidência tema por tema, <strong>sem saber de quem é cada uma</strong>. No fim, descubra com quem você mais se parece.</p>
     <ol>
-      <li>Em cada tema, escolha o bloco de propostas que você prefere.</li>
+      <li>São 15 temas sorteados a cada teste. Em cada um, escolha o bloco de propostas que você prefere.</li>
       <li>Se não concordar com nenhum, pule o tema.</li>
       <li>A posição dos blocos é sorteada a cada tema.</li>
     </ol>
     <button class="btn" id="comecar">Começar</button>
-    <p class="fonte">Fonte: Planos de Governo registrados no <a href="https://divulgacandcontas.tse.jus.br/" target="_blank" rel="noopener">TSE (DivulgaCandContas)</a>. As propostas foram resumidas e nomes de programas, partidos e pessoas foram retirados para não identificar o autor.</p>
+    <p class="fonte">Fonte: Planos de Governo registrados no TSE (links no resultado). As propostas foram resumidas e nomes de programas, partidos e pessoas foram retirados para não identificar o autor.</p>
   </section>
 
   <section id="quiz" class="hidden">
@@ -97,7 +97,7 @@
     <h2>Tema a tema</h2>
     <ul class="lista" id="lista"></ul>
     <div class="nav"><button class="btn" id="refazer">Refazer o teste</button></div>
-    <p class="fonte">Fonte: Planos de Governo registrados no <a href="https://divulgacandcontas.tse.jus.br/" target="_blank" rel="noopener">TSE</a>.</p>
+    <p class="fonte">Fontes: Planos de Governo registrados no TSE — <a href="https://www.tse.jus.br/eleicoes/eleicoes-2026-content/propostas-de-governo-dos-candidatos-ao-cargo-de-presidente-da-republica-eleicoes-2026/lula-propostas-de-governo" target="_blank" rel="noopener">Lula</a> e <a href="https://www.tse.jus.br/eleicoes/eleicoes-2026-content/propostas-de-governo-dos-candidatos-ao-cargo-de-presidente-da-republica-eleicoes-2026/flavio-bolsonaro" target="_blank" rel="noopener">Flávio Bolsonaro</a>.</p>
   </section>
 </main>
 
@@ -105,12 +105,17 @@
 <script>
 const $ = (id) => document.getElementById(id);
 const IDS = Object.keys(CANDIDATOS);
-let i, escolhas, lados;
+const POR_TESTE = 15;
+let i, escolhas, lados, temas;
 
 function iniciar() {
   i = 0;
-  escolhas = Array(TEMAS.length).fill(null); // id do candidato, "pulou" ou null
-  lados = TEMAS.map(() => (Math.random() < 0.5 ? IDS : [...IDS].reverse()));
+  // sorteia 15 temas em ordem aleatória (Fisher–Yates)
+  const t = [...TEMAS];
+  for (let k = t.length - 1; k > 0; k--) { const j = Math.floor(Math.random() * (k + 1)); [t[k], t[j]] = [t[j], t[k]]; }
+  temas = t.slice(0, POR_TESTE);
+  escolhas = Array(temas.length).fill(null); // id do candidato, "pulou" ou null
+  lados = temas.map(() => (Math.random() < 0.5 ? IDS : [...IDS].reverse()));
   mostrar("quiz");
   render();
 }
@@ -121,10 +126,10 @@ function mostrar(sec) {
 }
 
 function render() {
-  const t = TEMAS[i];
+  const t = temas[i];
   $("tema").textContent = t.tema;
-  $("count").textContent = `${i + 1} de ${TEMAS.length}`;
-  $("prog").style.width = `${(i / TEMAS.length) * 100}%`;
+  $("count").textContent = `${i + 1} de ${temas.length}`;
+  $("prog").style.width = `${(i / temas.length) * 100}%`;
   $("voltar").style.visibility = i ? "visible" : "hidden";
   $("cards").innerHTML = "";
   lados[i].forEach((id, k) => {
@@ -138,7 +143,7 @@ function render() {
 
 function escolher(v) {
   escolhas[i] = v;
-  if (++i < TEMAS.length) render(); else resultado();
+  if (++i < temas.length) render(); else resultado();
 }
 
 function resultado() {
@@ -150,7 +155,7 @@ function resultado() {
   if (!total) $("veredito").textContent = "Você pulou todos os temas";
   else if (votos[a] === votos[b]) $("veredito").textContent = "Empate! Você está dividido entre os dois";
   else $("veredito").textContent = `Você se parece mais com ${CANDIDATOS[a].nome}`;
-  $("resumo").textContent = `Você escolheu ${total} de ${TEMAS.length} temas (${TEMAS.length - total} pulados).`;
+  $("resumo").textContent = `Você escolheu ${total} de ${temas.length} temas (${temas.length - total} pulados).`;
 
   $("barras").innerHTML = IDS.map((id) => `
     <div class="row">
@@ -158,7 +163,7 @@ function resultado() {
       <div class="bar"><i style="width:${pct(id)}%;background:${CANDIDATOS[id].cor}"></i></div>
     </div>`).join("");
 
-  $("lista").innerHTML = TEMAS.map((t, k) => {
+  $("lista").innerHTML = temas.map((t, k) => {
     const e = escolhas[k];
     const txt = IDS.includes(e) ? CANDIDATOS[e].nome : "Nenhuma";
     const cor = IDS.includes(e) ? CANDIDATOS[e].cor : "var(--muted)";
