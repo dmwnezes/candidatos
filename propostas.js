@@ -2,8 +2,8 @@
 // Textos resumidos e neutralizados (sem nomes de programas, partidos ou pessoas)
 // para que o visitante não identifique o autor da proposta.
 const CANDIDATOS = {
-  lula: { nome: "Lula", nomeCompleto: "Luiz Inácio Lula da Silva", cor: "#f87171" },
-  flavio: { nome: "Flávio Bolsonaro", nomeCompleto: "Flávio Bolsonaro", cor: "#60a5fa" },
+  lula: { nome: "Lula", nomeCompleto: "Luiz Inácio Lula da Silva", cor: "#b8a07a" },
+  flavio: { nome: "Flávio Bolsonaro", nomeCompleto: "Flávio Bolsonaro", cor: "#7f93ad" },
 };
 
 const TEMAS = [
