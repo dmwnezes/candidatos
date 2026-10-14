@@ -68,6 +68,14 @@
     display: grid; place-items: center; border: 1px solid var(--line); color: var(--ink); }
   .card ul { list-style: none; padding: 0; margin-top: 6px; display: grid; gap: 4px; }
   .card li { position: relative; padding-left: 16px; font-size: .9rem; line-height: 1.35; }
+  .card li { color: #b9bac0; opacity: 0; animation: entra .35s ease-out forwards; }
+  .card li strong { color: var(--ink); font-weight: 600; }
+  .card { animation: sobe .3s ease-out both; }
+  .card.b { animation-delay: 80ms; }
+  #tema { animation: sobe .3s ease-out both; }
+  @keyframes entra { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: none; } }
+  @keyframes sobe { from { opacity: 0; transform: translateY(10px); } }
+  @media (prefers-reduced-motion: reduce) { .card, .card li, #tema { animation: none; opacity: 1; } }
   .card li::before { content: ""; position: absolute; left: 2px; top: .5em; width: 6px; height: 6px;
     border-radius: 50%; background: var(--muted); }
   @media (max-height: 760px) { .card li { font-size: .84rem; line-height: 1.3; } #tema { font-size: 1.25rem; } }
@@ -102,7 +110,7 @@
     <div class="duo"><div class="mini">A</div><div class="mini">B</div></div>
     <p class="lead">Escolha as propostas que você prefere sem saber de quem são. No fim, descubra com qual candidato você mais se parece.</p>
     <ul class="passos">
-      <li><b>1</b>15 temas sorteados a cada teste</li>
+      <li><b>1</b>7 temas sorteados a cada teste</li>
       <li><b>2</b>Toque no bloco de propostas que preferir</li>
       <li><b>3</b>Não gostou de nenhum? Pule o tema</li>
     </ul>
@@ -143,12 +151,12 @@
 <script>
 const $ = (id) => document.getElementById(id);
 const IDS = Object.keys(CANDIDATOS);
-const POR_TESTE = 15;
+const POR_TESTE = 7;
 let i, escolhas, lados, temas;
 
 function iniciar() {
   i = 0;
-  // sorteia 15 temas em ordem aleatória (Fisher–Yates)
+  // sorteia 7 temas em ordem aleatória (Fisher–Yates)
   const t = [...TEMAS];
   for (let k = t.length - 1; k > 0; k--) { const j = Math.floor(Math.random() * (k + 1)); [t[k], t[j]] = [t[j], t[k]]; }
   temas = t.slice(0, POR_TESTE);
@@ -166,6 +174,7 @@ function mostrar(sec) {
 function render() {
   const t = temas[i];
   $("tema").textContent = t.tema;
+  $("tema").style.animation = "none"; $("tema").offsetWidth; $("tema").style.animation = "";
   $("cards").scrollTop = 0;
   $("count").textContent = `${i + 1} de ${temas.length}`;
   $("prog").style.width = `${(i / temas.length) * 100}%`;
@@ -174,7 +183,7 @@ function render() {
   lados[i].forEach((id, k) => {
     const b = document.createElement("button");
     b.className = "card " + "ab"[k] + (escolhas[i] === id ? " sel" : "");
-    b.innerHTML = `<span class="tag"><i>${"AB"[k]}</i>Proposta ${"AB"[k]}</span><ul>${t[id].map((p) => `<li>${p}</li>`).join("")}</ul>`;
+    b.innerHTML = `<span class="tag"><i>${"AB"[k]}</i>Proposta ${"AB"[k]}</span><ul>${t[id].map((p, n) => `<li style="animation-delay:${k * 120 + n * 70}ms">${p.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")}</li>`).join("")}</ul>`;
     b.onclick = () => { b.classList.add("sel"); setTimeout(() => escolher(id), 220); };
     $("cards").appendChild(b);
   });
