@@ -2,79 +2,121 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0d1021">
 <title>Propostas às Cegas — Presidência 2026</title>
 <meta name="description" content="Escolha entre as propostas dos candidatos à Presidência sem saber de quem são e descubra com quem você mais se parece.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #f6f5f1; --card: #ffffff; --ink: #1c1b19; --muted: #6b6860;
-    --line: #e4e1d8; --accent: #3f3d56; --pick: #0f766e; --pick-bg: #ecfdf5;
+    --bg: #0d1021; --ink: #eef0fb; --muted: #9aa0c3; --line: rgba(255,255,255,.10);
+    --glass: rgba(255,255,255,.055); --a: #a78bfa; --b: #2dd4bf; --gold: #fbbf24;
   }
-  @media (prefers-color-scheme: dark) {
-    :root { --bg: #151514; --card: #1f1f1d; --ink: #eceae4; --muted: #a19e95;
-      --line: #34332f; --accent: #c9c6e8; --pick: #2dd4bf; --pick-bg: #10302c; }
-  }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--ink);
-    font: 16px/1.5 Inter, system-ui, sans-serif; }
-  main { max-width: 980px; margin: 0 auto; padding: 24px 16px 64px; }
-  h1 { font-size: clamp(1.8rem, 5vw, 2.6rem); line-height: 1.1; margin: 0 0 12px; letter-spacing: -0.02em; }
-  h2 { font-size: clamp(1.3rem, 4vw, 1.8rem); margin: 4px 0 18px; letter-spacing: -0.01em; }
-  p { color: var(--muted); }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { height: 100%; }
+  body { background: var(--bg); color: var(--ink); font: 15px/1.45 Inter, system-ui, sans-serif;
+    overflow-x: hidden; -webkit-tap-highlight-color: transparent; }
+  body::before, body::after { content: ""; position: fixed; z-index: -1; border-radius: 50%;
+    filter: blur(80px); opacity: .45; pointer-events: none; }
+  body::before { width: 60vmax; height: 60vmax; left: -25vmax; top: -25vmax; background: #4c1d95; }
+  body::after { width: 55vmax; height: 55vmax; right: -25vmax; bottom: -25vmax; background: #115e59; }
+  .serif { font-family: Fraunces, Georgia, serif; letter-spacing: -.02em; }
   .hidden { display: none !important; }
-  button { font: inherit; cursor: pointer; }
-  .btn { background: var(--accent); color: var(--bg); border: 0; border-radius: 999px;
-    padding: 12px 26px; font-weight: 600; }
-  .btn.ghost { background: transparent; color: var(--muted); border: 1px solid var(--line); }
-  .btn:focus-visible, .card:focus-visible { outline: 3px solid var(--pick); outline-offset: 2px; }
+  button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; }
+  button:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+  section { max-width: 1000px; margin: 0 auto; padding: max(14px, env(safe-area-inset-top)) 16px max(14px, env(safe-area-inset-bottom)); }
+  .btn { background: linear-gradient(135deg, var(--a), var(--b)); color: #0d1021; font-weight: 700;
+    border-radius: 999px; padding: 15px 30px; box-shadow: 0 10px 30px -10px rgba(167,139,250,.7);
+    transition: transform .15s; }
+  .btn:active { transform: scale(.97); }
+  .fonte { font-size: .78rem; color: var(--muted); }
+  .fonte a { color: var(--ink); }
 
-  /* intro */
-  .intro { padding: 8vh 0 0; max-width: 640px; }
-  .intro ol { color: var(--muted); padding-left: 20px; }
-  .fonte { font-size: .85rem; margin-top: 28px; }
-  .fonte a { color: var(--accent); }
+  /* ---------- intro ---------- */
+  #intro { min-height: 100dvh; display: flex; flex-direction: column; justify-content: center; gap: 22px; }
+  .eyebrow { font-size: .72rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
+  #intro h1 { font-size: clamp(2.6rem, 11vw, 4.6rem); line-height: .95; }
+  #intro h1 em { font-style: normal; background: linear-gradient(90deg, var(--a), var(--b));
+    -webkit-background-clip: text; background-clip: text; color: transparent; }
+  #intro p.lead { color: var(--muted); font-size: 1.05rem; max-width: 34ch; }
+  .duo { display: flex; gap: 14px; padding-left: 6px; }
+  .mini { flex: none; width: 92px; height: 120px; border-radius: 20px; border: 1px solid var(--line);
+    background: var(--glass); display: grid; place-items: center; font: 800 3rem Fraunces, serif;
+    animation: flutua 4s ease-in-out infinite; }
+  .mini:first-child { color: var(--a); transform: rotate(-6deg); }
+  .mini:last-child { color: var(--b); animation-delay: -2s; transform: rotate(5deg); }
+  @keyframes flutua { 50% { translate: 0 -8px; } }
+  .passos { display: grid; gap: 8px; list-style: none; padding: 0; }
+  .passos li { display: flex; gap: 10px; align-items: center; color: var(--muted); font-size: .92rem; }
+  .passos b { flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+    background: var(--glass); border: 1px solid var(--line); color: var(--ink); font-size: .8rem; }
 
-  /* quiz */
-  .top { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+  /* ---------- quiz: cabe numa tela ---------- */
+  #quiz { height: 100dvh; display: flex; flex-direction: column; gap: 8px; }
+  .top { display: flex; align-items: center; gap: 10px; }
   .bar { flex: 1; height: 6px; background: var(--line); border-radius: 99px; overflow: hidden; }
-  .bar i { display: block; height: 100%; background: var(--accent); transition: width .3s; }
-  .count { font-size: .85rem; color: var(--muted); white-space: nowrap; }
-  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  @media (max-width: 680px) { .grid { grid-template-columns: 1fr; } }
-  .card { text-align: left; background: var(--card); color: var(--ink); border: 2px solid var(--line);
-    border-radius: 18px; padding: 20px; transition: border-color .15s, transform .15s; }
-  .card:hover { border-color: var(--accent); transform: translateY(-2px); }
-  .card.sel { border-color: var(--pick); background: var(--pick-bg); }
-  .card .tag { font-size: .75rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
-  .card ul { margin: 10px 0 0; padding-left: 18px; }
-  .card li { margin: 8px 0; }
-  .nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
+  .bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--a), var(--b)); transition: width .4s; }
+  .count { font-size: .8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  #tema { font-size: clamp(1.35rem, 5.5vw, 2rem); line-height: 1.1; }
+  .grid { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 10px; }
+  .grid .card { flex: 1 1 auto; }
+  @media (min-width: 760px) { .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; } }
+  .card { --c: var(--a); position: relative; display: flex; flex-direction: column; justify-content: flex-start; min-height: 0; overflow-y: auto; text-align: left;
+    border-radius: 22px; padding: 12px 14px 12px 14px; background: var(--glass);
+    border: 1px solid var(--line); backdrop-filter: blur(10px);
+    transition: transform .2s, border-color .2s, background .2s, box-shadow .2s; }
+  .card.b { --c: var(--b); }
+  .card::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--c); }
+  .card:hover { border-color: var(--c); }
+  .card.sel { background: color-mix(in srgb, var(--c) 18%, transparent); border-color: var(--c);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 35%, transparent); transform: scale(.985); }
+  .tag { display: flex; align-items: center; gap: 8px; font-size: .72rem; font-weight: 700;
+    letter-spacing: .12em; text-transform: uppercase; color: var(--c); }
+  .tag i { font: 800 1rem Fraunces, serif; font-style: normal; width: 28px; height: 28px; border-radius: 50%;
+    display: grid; place-items: center; background: var(--c); color: #0d1021; }
+  .card ul { list-style: none; padding: 0; margin-top: 6px; display: grid; gap: 4px; }
+  .card li { position: relative; padding-left: 16px; font-size: .9rem; line-height: 1.35; }
+  .card li::before { content: ""; position: absolute; left: 2px; top: .5em; width: 6px; height: 6px;
+    border-radius: 50%; background: var(--c); }
+  @media (max-height: 760px) { .card li { font-size: .84rem; line-height: 1.3; } #tema { font-size: 1.25rem; } }
+  .nav { display: flex; gap: 10px; }
+  .nav button { border-radius: 999px; border: 1px solid var(--line); background: var(--glass); padding: 12px 18px;
+    font-size: .9rem; font-weight: 600; color: var(--muted); }
+  #pular { flex: 1; }
 
-  /* result */
-  .res { display: grid; gap: 14px; margin: 18px 0 30px; }
-  .row { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px; }
-  .row .head { display: flex; justify-content: space-between; font-weight: 700; margin-bottom: 8px; }
-  .row .bar { height: 12px; }
-  .lista { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
-  .lista li { background: var(--card); border: 1px solid var(--line); border-radius: 12px;
-    padding: 10px 14px; display: flex; justify-content: space-between; gap: 12px; font-size: .95rem; }
+  /* ---------- resultado ---------- */
+  #resultado { display: grid; gap: 18px; padding-top: 28px; padding-bottom: 40px; }
+  .hero { display: flex; align-items: center; gap: 18px; }
+  .anel { flex: none; width: 112px; height: 112px; border-radius: 50%; display: grid; place-items: center;
+    background: conic-gradient(var(--c1) calc(var(--p) * 1%), var(--c2) 0); }
+  .anel span { width: 86px; height: 86px; border-radius: 50%; background: var(--bg); display: grid; place-items: center;
+    font: 800 1.6rem Fraunces, serif; }
+  #veredito { font-size: clamp(1.6rem, 6vw, 2.4rem); line-height: 1.05; }
+  #resumo { color: var(--muted); margin-top: 6px; font-size: .9rem; }
+  .row { background: var(--glass); border: 1px solid var(--line); border-radius: 18px; padding: 14px 16px; }
+  .row .head { display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 8px; gap: 8px; }
+  .row .bar { height: 10px; }
+  h2 { font-size: 1.3rem; }
+  .lista { list-style: none; padding: 0; display: grid; gap: 6px; }
+  .lista li { background: var(--glass); border: 1px solid var(--line); border-radius: 14px; padding: 10px 14px;
+    display: flex; justify-content: space-between; gap: 12px; font-size: .9rem; }
   .lista b { white-space: nowrap; }
 </style>
 </head>
 <body>
-<main>
-  <section id="intro" class="intro">
-    <h1>Propostas às cegas</h1>
-    <p>Compare as propostas dos dois candidatos à Presidência tema por tema, <strong>sem saber de quem é cada uma</strong>. No fim, descubra com quem você mais se parece.</p>
-    <ol>
-      <li>São 15 temas sorteados a cada teste. Em cada um, escolha o bloco de propostas que você prefere.</li>
-      <li>Se não concordar com nenhum, pule o tema.</li>
-      <li>A posição dos blocos é sorteada a cada tema.</li>
-    </ol>
-    <button class="btn" id="comecar">Começar</button>
-    <p class="fonte">Fonte: Planos de Governo registrados no TSE (links no resultado). As propostas foram resumidas e nomes de programas, partidos e pessoas foram retirados para não identificar o autor.</p>
+  <section id="intro">
+    <span class="eyebrow">Presidência 2026</span>
+    <h1 class="serif">Propostas <em>às cegas</em></h1>
+    <div class="duo"><div class="mini">A</div><div class="mini">B</div></div>
+    <p class="lead">Escolha as propostas que você prefere sem saber de quem são. No fim, descubra com qual candidato você mais se parece.</p>
+    <ul class="passos">
+      <li><b>1</b>15 temas sorteados a cada teste</li>
+      <li><b>2</b>Toque no bloco de propostas que preferir</li>
+      <li><b>3</b>Não gostou de nenhum? Pule o tema</li>
+    </ul>
+    <div><button class="btn" id="comecar">Começar o teste</button></div>
+    <p class="fonte">Fonte: Planos de Governo registrados no TSE (links no resultado). Textos resumidos, sem nomes de programas, partidos ou pessoas.</p>
   </section>
 
   <section id="quiz" class="hidden">
@@ -82,24 +124,29 @@
       <div class="bar"><i id="prog"></i></div>
       <span class="count" id="count"></span>
     </div>
-    <h2 id="tema"></h2>
+    <h2 class="serif" id="tema"></h2>
     <div class="grid" id="cards"></div>
     <div class="nav">
-      <button class="btn ghost" id="voltar">← Voltar</button>
-      <button class="btn ghost" id="pular">Nenhuma das duas →</button>
+      <button id="voltar" aria-label="Voltar">←</button>
+      <button id="pular">Nenhuma das duas</button>
     </div>
   </section>
 
   <section id="resultado" class="hidden">
-    <h1 id="veredito"></h1>
-    <p id="resumo"></p>
-    <div class="res" id="barras"></div>
-    <h2>Tema a tema</h2>
+    <div class="hero">
+      <div class="anel" id="anel"><span id="anelTxt"></span></div>
+      <div>
+        <span class="eyebrow">Seu resultado</span>
+        <h1 class="serif" id="veredito"></h1>
+        <p id="resumo"></p>
+      </div>
+    </div>
+    <div style="display:grid;gap:10px" id="barras"></div>
+    <h2 class="serif">Tema a tema</h2>
     <ul class="lista" id="lista"></ul>
-    <div class="nav"><button class="btn" id="refazer">Refazer o teste</button></div>
+    <div><button class="btn" id="refazer">Refazer o teste</button></div>
     <p class="fonte">Fontes: Planos de Governo registrados no TSE — <a href="https://www.tse.jus.br/eleicoes/eleicoes-2026-content/propostas-de-governo-dos-candidatos-ao-cargo-de-presidente-da-republica-eleicoes-2026/lula-propostas-de-governo" target="_blank" rel="noopener">Lula</a> e <a href="https://www.tse.jus.br/eleicoes/eleicoes-2026-content/propostas-de-governo-dos-candidatos-ao-cargo-de-presidente-da-republica-eleicoes-2026/flavio-bolsonaro" target="_blank" rel="noopener">Flávio Bolsonaro</a>.</p>
   </section>
-</main>
 
 <script src="propostas.js"></script>
 <script>
@@ -128,15 +175,16 @@ function mostrar(sec) {
 function render() {
   const t = temas[i];
   $("tema").textContent = t.tema;
+  $("cards").scrollTop = 0;
   $("count").textContent = `${i + 1} de ${temas.length}`;
   $("prog").style.width = `${(i / temas.length) * 100}%`;
   $("voltar").style.visibility = i ? "visible" : "hidden";
   $("cards").innerHTML = "";
   lados[i].forEach((id, k) => {
     const b = document.createElement("button");
-    b.className = "card" + (escolhas[i] === id ? " sel" : "");
-    b.innerHTML = `<span class="tag">Proposta ${"AB"[k]}</span><ul>${t[id].map((p) => `<li>${p}</li>`).join("")}</ul>`;
-    b.onclick = () => escolher(id);
+    b.className = "card " + "ab"[k] + (escolhas[i] === id ? " sel" : "");
+    b.innerHTML = `<span class="tag"><i>${"AB"[k]}</i>Proposta ${"AB"[k]}</span><ul>${t[id].map((p) => `<li>${p}</li>`).join("")}</ul>`;
+    b.onclick = () => { b.classList.add("sel"); setTimeout(() => escolher(id), 220); };
     $("cards").appendChild(b);
   });
 }
@@ -169,6 +217,9 @@ function resultado() {
     const cor = IDS.includes(e) ? CANDIDATOS[e].cor : "var(--muted)";
     return `<li><span>${t.tema}</span><b style="color:${cor}">${txt}</b></li>`;
   }).join("");
+  const lider = votos[a] >= votos[b] ? a : b;
+  $("anel").style.cssText = `--p:${pct(lider)};--c1:${CANDIDATOS[lider].cor};--c2:${total ? CANDIDATOS[lider === a ? b : a].cor : "var(--line)"}`;
+  $("anelTxt").textContent = `${pct(lider)}%`;
   mostrar("resultado");
 }
 

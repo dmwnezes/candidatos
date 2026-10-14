@@ -2,8 +2,8 @@
 // Textos resumidos e neutralizados (sem nomes de programas, partidos ou pessoas)
 // para que o visitante não identifique o autor da proposta.
 const CANDIDATOS = {
-  lula: { nome: "Lula", nomeCompleto: "Luiz Inácio Lula da Silva", cor: "#c2410c" },
-  flavio: { nome: "Flávio Bolsonaro", nomeCompleto: "Flávio Bolsonaro", cor: "#1d4ed8" },
+  lula: { nome: "Lula", nomeCompleto: "Luiz Inácio Lula da Silva", cor: "#f87171" },
+  flavio: { nome: "Flávio Bolsonaro", nomeCompleto: "Flávio Bolsonaro", cor: "#60a5fa" },
 };
 
 const TEMAS = [
@@ -12,29 +12,29 @@ const TEMAS = [
     flavio: [
       "Declarar facções e milícias como organizações narcoterroristas e bloquear seus ativos.",
       "Reduzir a maioridade penal para 16 anos e punir maiores de 14 anos por crimes graves.",
-      "Construir 5 presídios federais de segurança máxima, criar 500 mil vagas prisionais em 4 anos e acabar com a progressão de regime para crimes hediondos.",
+      "5 presídios federais de segurança máxima, 500 mil vagas prisionais em 4 anos e fim da progressão de regime para crimes hediondos.",
       "Castração química para estupradores e abusadores de crianças condenados; rede nacional de reconhecimento facial com mais de 1 milhão de câmeras.",
     ],
     lula: [
       "Criar o Ministério da Segurança Pública após aprovar emenda constitucional que redefine o papel da União, estados e municípios.",
       "Seguir com a asfixia financeira do crime organizado e ampliar as forças-tarefa integradas com os estados.",
-      "Manter o controle de armas e munições e reforçar a fiscalização sobre colecionadores, atiradores, caçadores e segurança privada.",
+      "Manter o controle de armas e munições e fiscalizar mais colecionadores, atiradores, caçadores e segurança privada.",
       "Ampliar câmeras corporais nos policiais, policiamento de proximidade e programas de prevenção da violência voltados à juventude.",
     ],
   },
   {
     tema: "Proteção e autonomia das mulheres",
     flavio: [
-      "Abrir centrais físicas e itinerantes que reúnam proteção, orientação jurídica, saúde, emprego e crédito, com aplicativo e assistente virtual 24h.",
-      "Monitorar por tornozeleira eletrônica os agressores com medida protetiva e exigir cumprimento integral da pena de quem agride ou mata mulheres.",
+      "Centrais físicas e itinerantes com proteção, apoio jurídico, saúde, emprego e crédito, mais aplicativo com assistente virtual 24h.",
+      "Tornozeleira eletrônica em agressores com medida protetiva e pena cumprida integralmente por quem agride ou mata mulheres.",
       "Oferecer pacotes de internet e cursos gratuitos de capacitação (IA, programação, finanças, idiomas).",
       "Criar programa de pontos que transforma bons hábitos (estudar, poupar, pagar em dia) em juros menores e cashback.",
     ],
     lula: [
-      "Concluir 30 centros integrados de atendimento à mulher vítima de violência e 15 centros de referência; distribuir kits de monitoramento de agressores aos estados.",
+      "Concluir 30 centros integrados de atendimento à mulher vítima de violência e 15 centros de referência; kits de monitoramento de agressores.",
       "Manter o pacto entre os três Poderes contra o feminicídio.",
       "Tornar obrigatórios planos de ação nas empresas com desigualdade salarial entre homens e mulheres.",
-      "Garantir direitos sexuais e reprodutivos, com contraceptivos de longa duração e absorventes gratuitos pelo SUS.",
+      "Garantir direitos sexuais e reprodutivos, com contraceptivos e absorventes gratuitos no SUS.",
     ],
   },
   {
